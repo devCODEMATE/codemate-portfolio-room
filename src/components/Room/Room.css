@@ -1,0 +1,179 @@
+/* src/components/Room/Room.css */
+
+.room-viewport {
+  position: relative;   
+  width: 950px;
+  height: 706px;
+  margin: 40px auto;
+  overflow: hidden;
+  border: 4px solid #ffd166;
+  border-radius: 8px;
+}
+
+.room {
+  position: relative;
+  width: 2556px;
+  height: 1900px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  transform: scale(0.372);
+  transform-origin: top left;
+}
+
+.hotspot {
+  position: absolute;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.hotspot--panel {
+  outline: 2px dashed rgba(255, 209, 102, 0.5);
+}
+.hotspot--easter-egg {
+  outline: 2px dashed rgba(107, 158, 147, 0.5);
+}
+
+.speech-bubble {
+  position: absolute;
+  transform: translateX(-50%);
+  background: white;
+  color: #073b4c;
+  font-weight: bold;
+  padding: 8px 14px;
+  border-radius: 12px;
+  border: 2px solid #073b4c;
+  animation: pop-fade 1.5s ease forwards;
+  z-index: 3;
+}
+
+@keyframes pop-fade {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(10px) scale(0.8); }
+  15%  { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 59, 76, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+}
+
+.modal {
+  background: #2b2640;
+  border: 2px solid #ffd166;
+  border-radius: 12px;
+  padding: 24px 32px;
+  min-width: 280px;
+  color: white;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #ffd166;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.hud-controls {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  gap: 16px;
+  background: rgba(7, 59, 76, 0.85);
+  border: 2px solid #ffd166;
+  border-radius: 8px;
+  padding: 8px 14px;
+  z-index: 5;
+}
+
+.key-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+kbd {
+  background: #5a527a;
+  border: 1px solid #ffd166;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  color: #ffd166;
+  font-family: inherit;
+}
+
+.hud-commits {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(7, 59, 76, 0.85);
+  border: 2px solid #6b9e93;
+  border-radius: 8px;
+  padding: 8px 14px;
+  color: white;
+  font-weight: bold;
+  font-size: 0.85rem;
+  z-index: 5;
+}
+
+.commits-icon {
+  color: #6b9e93;
+  font-family: monospace;
+}
+
+.hud-language {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  gap: 4px;
+  z-index: 5;
+}
+
+.lang-btn {
+  background: rgba(7, 59, 76, 0.85);
+  border: 2px solid #ffd166;
+  border-radius: 6px;
+  padding: 6px 10px;
+  color: #ffd166;
+  font-weight: bold;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.lang-btn.active {
+  background: #ffd166;
+  color: #073b4c;
+}
+
+.hud-brand {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  background: rgba(7, 59, 76, 0.85);
+  border: 2px solid #ffd166;
+  border-radius: 20px;
+  padding: 6px 16px;
+  color: #ffd166;
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 0.85rem;
+  z-index: 5;
+}
