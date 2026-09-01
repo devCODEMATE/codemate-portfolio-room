@@ -14,6 +14,7 @@ export const translations = {
     hud: {
       move: 'Move',
       interact: 'Interact',
+      close: 'Close',
       commits: 'commits',
     },
     modalPlaceholder: 'content coming soon.',
@@ -29,6 +30,7 @@ export const translations = {
     hud: {
       move: 'Moverse',
       interact: 'Interactuar',
+      close: 'Cerrar',
       commits: 'commits',
     },
     modalPlaceholder: 'contenido próximamente.',
