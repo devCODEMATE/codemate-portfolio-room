@@ -1,10 +1,8 @@
 .player {
   position: absolute;
-  width: 108px;
-  height: 108px;
-  background: #ffd166;
-  border: 8px solid #073b4c;
-  border-radius: 50%;
+  width: 130px;
+  height: auto;
   z-index: 10;
-  transform: translate(-50%, -50%);
+  image-rendering: pixelated;
+  pointer-events: none;
 }

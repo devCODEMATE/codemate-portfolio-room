@@ -1,0 +1,80 @@
+/* src/components/TouchControls/TouchControls.css */
+
+.touch-controls {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 24px;
+  pointer-events: none;
+  z-index: 40;
+}
+
+.dpad {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  pointer-events: auto;
+}
+
+.dpad-btn {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  background: rgba(20, 30, 25, 0.55);
+  color: #fff;
+  font-size: 22px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.dpad-btn:active {
+  background: rgba(255, 200, 80, 0.5);
+}
+
+.dpad-up    { top: 0;    left: 50px; }
+.dpad-down  { top: 100px; left: 50px; }
+.dpad-left  { top: 50px; left: 0; }
+.dpad-right { top: 50px; left: 100px; }
+
+.interact-btn {
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 200, 80, 0.55);
+  color: #1a1a1a;
+  font-size: 26px;
+  font-weight: 900;
+  pointer-events: auto;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.interact-btn:active {
+  background: rgba(255, 200, 80, 0.85);
+}
+
+@media (min-width: 900px) {
+  .touch-controls {
+    display: none;
+  }
+}
+
+/* Room.css — mismo criterio para el HUD de texto */
+@media (max-width: 899px) {
+  .hud-controls {
+    display: none;
+  }
+}
