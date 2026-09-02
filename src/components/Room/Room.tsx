@@ -9,6 +9,7 @@ import Player, { type Direction } from '../Player/Player';
 import roomBg from '../../assets/room/room-background.png';
 import './Room.css';
 import TouchControls from '../TouchControls/TouchControls';
+import StationPanel from '../StationPanel/StationPanel';
 
 const ROOM_WIDTH = 2556;
 const ROOM_HEIGHT = 1900;
@@ -158,18 +159,20 @@ function Room() {
     return () => window.removeEventListener('keydown', handleClose);
   }, []);
 
-  useEffect(() => {
-    function toggleDebug(e: KeyboardEvent) {
-      if (e.key.toLowerCase() === 'o') {
-        setDebugMode((d) => !d);
-      }
-    }
-    window.addEventListener('keydown', toggleDebug);
-    return () => window.removeEventListener('keydown', toggleDebug);
-  }, []);
+useEffect(() => {
+  if (!import.meta.env.DEV) return;
 
-  function handleRoomClick(e: React.MouseEvent<HTMLDivElement>) {
-    if (!debugMode) return;
+  function toggleDebug(e: KeyboardEvent) {
+    if (e.key.toLowerCase() === 'o') {
+      setDebugMode((d) => !d);
+    }
+  }
+  window.addEventListener('keydown', toggleDebug);
+  return () => window.removeEventListener('keydown', toggleDebug);
+}, []);
+
+function handleRoomClick(e: React.MouseEvent<HTMLDivElement>) {
+  if (!import.meta.env.DEV || !debugMode) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const scale = rect.width / ROOM_WIDTH;
     const x = Math.round((e.clientX - rect.left) / scale);
@@ -209,16 +212,6 @@ function Room() {
               onAnimationEnd={() => setActiveStation(null)}
             >
               {t.stations[activeStation.id]}
-            </div>
-          )}
-
-          {activeStation?.kind === 'panel' && (
-            <div className="modal-overlay" onClick={() => setActiveStation(null)}>
-              <div className="modal" onClick={(e) => e.stopPropagation()}>
-                <button className="modal-close" onClick={() => setActiveStation(null)}>×</button>
-                <h2>{t.stations[activeStation.id]}</h2>
-                <p>{t.stations[activeStation.id]} {t.modalPlaceholder}</p>
-              </div>
             </div>
           )}
 
@@ -327,6 +320,16 @@ function Room() {
         <div className="hud-brand">{'<CodeMate>'}</div>
         <TouchControls keysPressed={keysPressed} onInteract={interact} />
       </div>
+
+      {activeStation?.kind === 'panel' && (
+        <div className="modal-overlay" onClick={() => setActiveStation(null)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setActiveStation(null)}>×</button>
+            <h2>{t.stations[activeStation.id]}</h2>
+            <StationPanel station={activeStation} language={language} />
+          </div>
+        </div>
+      )}
 
       {debugMode && (
         <div className="debug-log">
