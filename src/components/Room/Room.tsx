@@ -18,10 +18,11 @@ const SPEED = 7;
 type Point = { x: number; y: number };
 
 const WALKABLE_BOUNDARY: Point[] = [
-  { x: 2250, y: 1269 }, { x: 1030, y: 1269 }, { x: 1030, y: 1624 },
-  { x: 720, y: 1656 }, { x: 718, y: 1298 }, { x: 228, y: 1282 },
-  { x: 255, y: 30 }, { x: 2398, y: 30 }, { x: 2395, y: 1266 },
+  { x: 2491, y: 86 }, { x: 2483, y: 1410 }, { x: 1065, y: 1410 },
+  { x: 1047, y: 1657 }, { x: 479, y: 1649 }, { x: 500, y: 1410 },
+  { x: 54, y: 1396 }, { x: 78, y: 32 }, { x: 2489, y: 24 },
 ];
+
 const OBSTACLE_POLYGONS: Point[][] = [
   [
     { x: 2011, y: 140 }, { x: 2022, y: 430 }, { x: 2360, y: 449 }, { x: 2352, y: 167 },
@@ -34,15 +35,25 @@ const OBSTACLE_POLYGONS: Point[][] = [
 
 const OBSTACLE_RECTS = [
   { xMin: 231, xMax: 863, yMin: 516, yMax: 755 },     // estante decorativo
-  { xMin: 374, xMax: 683, yMin: 882, yMax: 1086 },    // mesa de comedor + sillas
-  { xMin: 2263, xMax: 2427, yMin: 1000, yMax: 1282 }, // lámpara + planta esquina
-  { xMin: 1046, xMax: 1511, yMin: 51, yMax: 336 },    // biblioteca
-  { xMin: 1384, xMax: 1637, yMin: 516, yMax: 876 },   // mesita teléfono - parte vertical (planta)
-  { xMin: 1516, xMax: 1890, yMin: 801, yMax: 1046 },  // mesita teléfono - parte horizontal (corregida)
+  { xMin: 253, xMax: 570, yMin: 995, yMax: 1211 },    // mesa (about)
+  { xMin: 2330, xMax: 2497, yMin: 1119, yMax: 1407 }, // lámpara + planta esquina
+  { xMin: 1195, xMax: 1485, yMin: 110, yMax: 420 },   // biblioteca
+  { xMin: 1496, xMax: 1908, yMin: 1022, yMax: 1176 }, // aparador (reemplaza mesita teléfono)
 ];
 
 const WALL_RECTS = [
-  { xMin: 1513, xMax: 1632, yMin: 27, yMax: 347 }, // biombo/divisor junto a biblioteca
+  { xMin: 1496, xMax: 1628, yMin: 40, yMax: 417 }, // biombo/divisor junto a biblioteca (actualizado)
+];
+
+const WALL_POLYGONS: Point[][] = [
+  [
+    { x: 1359, y: 581 }, { x: 1364, y: 979 }, { x: 1900, y: 990 },
+    { x: 1902, y: 837 }, { x: 1639, y: 837 }, { x: 1620, y: 570 },
+  ],
+  [
+    { x: 823, y: 309 }, { x: 839, y: 54 }, { x: 94, y: 126 },
+    { x: 86, y: 484 }, { x: 608, y: 471 }, { x: 613, y: 331 },
+  ],
 ];
 
 function isPointInPolygon(x: number, y: number, polygon: Point[]): boolean {
@@ -65,6 +76,10 @@ function isWalkable(x: number, y: number): boolean {
     if (isPointInPolygon(x, y, poly)) return false;
   }
 
+  for (const poly of WALL_POLYGONS) {
+    if (isPointInPolygon(x, y, poly)) return false;
+  }
+
   for (const r of OBSTACLE_RECTS) {
     if (x >= r.xMin && x <= r.xMax && y >= r.yMin && y <= r.yMax) return false;
   }
@@ -80,14 +95,26 @@ function Room() {
   const [activeStation, setActiveStation] = useState<Station | null>(null);
   const [language, setLanguage] = useState<Language>('en');
   const [commits, setCommits] = useState(0);
-  const [playerPos, setPlayerPos] = useState({ x: 1200, y: 500 });
-  const [direction, setDirection] = useState<Direction>('down');
+  const [playerPos, setPlayerPos] = useState({ x: 855, y: 1376 });
+  const [direction, setDirection] = useState<Direction>('up');
   const [nearbyStation, setNearbyStation] = useState<Station | null>(null);
   const [debugMode, setDebugMode] = useState(false);
   const [debugLog, setDebugLog] = useState<{ x: number; y: number }[]>([]);
+  const [roomScale, setRoomScale] = useState(1);
 
   const keysPressed = useKeyboard();
   const t = translations[language];
+
+  useEffect(() => {
+    function updateScale() {
+      const horizontalPadding = 32;
+      const available = Math.min(950, window.innerWidth - horizontalPadding);
+      setRoomScale(available / ROOM_WIDTH);
+    }
+    updateScale();
+    window.addEventListener('resize', updateScale);
+    return () => window.removeEventListener('resize', updateScale);
+  }, []);
 
   useEffect(() => {
     let frameId: number;
@@ -159,20 +186,20 @@ function Room() {
     return () => window.removeEventListener('keydown', handleClose);
   }, []);
 
-useEffect(() => {
-  if (!import.meta.env.DEV) return;
+  useEffect(() => {
+    if (!import.meta.env.DEV) return;
 
-  function toggleDebug(e: KeyboardEvent) {
-    if (e.key.toLowerCase() === 'o') {
-      setDebugMode((d) => !d);
+    function toggleDebug(e: KeyboardEvent) {
+      if (e.key.toLowerCase() === 'o') {
+        setDebugMode((d) => !d);
+      }
     }
-  }
-  window.addEventListener('keydown', toggleDebug);
-  return () => window.removeEventListener('keydown', toggleDebug);
-}, []);
+    window.addEventListener('keydown', toggleDebug);
+    return () => window.removeEventListener('keydown', toggleDebug);
+  }, []);
 
-function handleRoomClick(e: React.MouseEvent<HTMLDivElement>) {
-  if (!import.meta.env.DEV || !debugMode) return;
+  function handleRoomClick(e: React.MouseEvent<HTMLDivElement>) {
+    if (!import.meta.env.DEV || !debugMode) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const scale = rect.width / ROOM_WIDTH;
     const x = Math.round((e.clientX - rect.left) / scale);
@@ -182,13 +209,29 @@ function handleRoomClick(e: React.MouseEvent<HTMLDivElement>) {
 
   return (
     <>
-      <div className="room-viewport">
+      <div className="hud-header">
+        <span className="hud-header-prompt">&gt;</span> Lia Florencia Cervini — Frontend Developer
+      </div>
+
+      <div
+        className="room-viewport"
+        style={{ width: ROOM_WIDTH * roomScale, height: ROOM_HEIGHT * roomScale }}
+      >
         <div
           className="room"
-          style={{ backgroundImage: `url(${roomBg})` }}
+          style={{ backgroundImage: `url(${roomBg})`, transform: `scale(${roomScale})` }}
           onClick={handleRoomClick}
         >
           <Player x={playerPos.x} y={playerPos.y} direction={direction} />
+
+          <svg className="room-outline" viewBox={`0 0 ${ROOM_WIDTH} ${ROOM_HEIGHT}`}>
+            <polygon
+              points={WALKABLE_BOUNDARY.map((p) => `${p.x},${p.y}`).join(' ')}
+              fill="none"
+              stroke="#ffd166"
+              strokeWidth={12}
+            />
+          </svg>
 
           {nearbyStation && !activeStation && (
             <div
@@ -266,6 +309,15 @@ function handleRoomClick(e: React.MouseEvent<HTMLDivElement>) {
                   y={r.yMin}
                   width={r.xMax - r.xMin}
                   height={r.yMax - r.yMin}
+                  fill="rgba(80,80,255,0.4)"
+                  stroke="blue"
+                  strokeWidth={4}
+                />
+              ))}
+              {WALL_POLYGONS.map((poly, i) => (
+                <polygon
+                  key={`wallpoly-${i}`}
+                  points={poly.map((p) => `${p.x},${p.y}`).join(' ')}
                   fill="rgba(80,80,255,0.4)"
                   stroke="blue"
                   strokeWidth={4}

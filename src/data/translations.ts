@@ -33,14 +33,15 @@ export const translations = {
     },
     modalPlaceholder: 'content coming soon.',
     content: {
-      about:
-        'Self-taught junior frontend developer proficient in JavaScript, HTML/CSS, React, TypeScript, and Python. Previously, over a decade of management and customer service experience in the public sector (ARBA), with measurable results in response-time reduction and customer satisfaction. I combine that analytical foundation with active technical training to add value from day one on a development team.',
+      about: [
+  'Self-taught junior frontend developer proficient in JavaScript, HTML/CSS, React, TypeScript, and Python.',
+  'Previously, over a decade of management and customer service experience in the public sector (ARBA), with measurable results in response-time reduction and customer satisfaction. I combine that analytical foundation with active technical training to add value from day one on a development team.',
+],
       skills: [
-        { icon: '🧠', title: 'Languages & Core', items: 'JavaScript (ES6+), HTML5, CSS3, Canvas API, React, TypeScript, Python' },
-        { icon: '🛠️', title: 'Tools & Workflow', items: 'Git/GitHub, GitHub Actions (CI/CD), Node.js, Vitest' },
+        { icon: '🧠', title: 'Languages & Core', items: 'JavaScript (ES6+), HTML5, CSS3, Canvas API, React, TypeScript, Python, Tailwind CSS' },        { icon: '🛠️', title: 'Tools & Workflow', items: 'Git/GitHub, GitHub Actions (CI/CD), Node.js, Vitest' },
         { icon: '📊', title: 'Data & APIs', items: 'REST APIs, i18n, data pipeline architecture' },
         { icon: '🤖', title: 'AI Tools', items: 'Claude Code, ChatGPT, Gemini' },
-        { icon: '🎨', title: 'Design', items: 'Canva' },
+        { icon: '🎨', title: 'Design & Planning', items: 'Canva, Excalidraw' },
       ] as SkillGroup[],
       projects: [
         {
@@ -110,14 +111,15 @@ export const translations = {
     },
     modalPlaceholder: 'contenido próximamente.',
     content: {
-      about:
-        'Desarrolladora frontend junior, autodidacta, con dominio de JavaScript, HTML/CSS, React, TypeScript y Python. Previamente, más de una década de experiencia en gestión y atención al cliente en el sector público (ARBA), con logros medibles en reducción de tiempos de respuesta y satisfacción del cliente. Combino esa base analítica con formación técnica activa para aportar valor desde el primer día en un equipo de desarrollo.',
+     about: [
+  'Desarrolladora frontend junior, autodidacta, con dominio de JavaScript, HTML/CSS, React, TypeScript y Python.',
+  'Previamente, más de una década de experiencia en gestión y atención al cliente en el sector público (ARBA), con logros medibles en reducción de tiempos de respuesta y satisfacción del cliente. Combino esa base analítica con formación técnica activa para aportar valor desde el primer día en un equipo de desarrollo.',
+],
       skills: [
-        { icon: '🧠', title: 'Lenguajes y base', items: 'JavaScript (ES6+), HTML5, CSS3, Canvas API, React, TypeScript, Python' },
-        { icon: '🛠️', title: 'Herramientas y flujo', items: 'Git/GitHub, GitHub Actions (CI/CD), Node.js, Vitest' },
+        { icon: '🧠', title: 'Lenguajes y base', items: 'JavaScript (ES6+), HTML5, CSS3, Canvas API, React, TypeScript, Python, Tailwind CSS' },        { icon: '🛠️', title: 'Herramientas y flujo', items: 'Git/GitHub, GitHub Actions (CI/CD), Node.js, Vitest' },
         { icon: '📊', title: 'Datos y APIs', items: 'REST APIs, i18n, arquitectura de pipelines de datos' },
         { icon: '🤖', title: 'Herramientas IA', items: 'Claude Code, ChatGPT, Gemini' },
-        { icon: '🎨', title: 'Diseño', items: 'Canva' },
+        { icon: '🎨', title: 'Diseño y Planificación', items: 'Canva, Excalidraw' },
       ] as SkillGroup[],
       projects: [
         {

@@ -1,0 +1,9 @@
+/* src/components/StationIcon/StationIcon.css */
+.station-icon {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  height: auto;
+  image-rendering: pixelated;
+  pointer-events: none;
+  z-index: 8;
+}
