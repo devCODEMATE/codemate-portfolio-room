@@ -1,3 +1,5 @@
+import type { Station } from '../types/station';
+
 export const stations: Station[] = [
   { id: 'about',    kind: 'panel',      position: { x: 412, y: 1103 }, hitboxRadius: 192 },
   { id: 'skills',   kind: 'panel',      position: { x: 1340, y: 265 }, hitboxRadius: 212 },
