@@ -49,6 +49,8 @@
 .hud-header {
   display: block;
   width: fit-content;
+  max-width: calc(100% - 32px);
+  box-sizing: border-box;
   margin: 24px auto 0;
   background: rgba(7, 59, 76, 0.85);
   border: 2px solid #ffd166;
@@ -62,9 +64,14 @@
   white-space: nowrap;
 }
 
-.hud-header-prompt {
-  color: #6b9e93;
-  margin-right: 6px;
+@media (max-width: 480px) {
+  .hud-header {
+    font-size: 0.65rem;
+    padding: 8px 12px;
+    white-space: normal;
+    text-align: center;
+    letter-spacing: 0.2px;
+  }
 }
 
 .hud-header-prompt {
