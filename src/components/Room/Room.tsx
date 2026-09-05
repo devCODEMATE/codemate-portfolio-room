@@ -108,8 +108,14 @@ function Room() {
   useEffect(() => {
     function updateScale() {
       const horizontalPadding = 32;
-      const available = Math.min(950, window.innerWidth - horizontalPadding);
-      setRoomScale(available / ROOM_WIDTH);
+      const verticalPadding = 220;
+      const availableWidth = Math.min(950, window.innerWidth - horizontalPadding);
+      const availableHeight = window.innerHeight - verticalPadding;
+
+      const scaleByWidth = availableWidth / ROOM_WIDTH;
+      const scaleByHeight = availableHeight / ROOM_HEIGHT;
+
+      setRoomScale(Math.min(scaleByWidth, scaleByHeight));
     }
     updateScale();
     window.addEventListener('resize', updateScale);

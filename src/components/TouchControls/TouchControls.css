@@ -66,14 +66,18 @@
   background: rgba(255, 200, 80, 0.85);
 }
 
-@media (min-width: 900px) {
+/* Mostrar touch-controls / ocultarlos según el tipo de INPUT del dispositivo
+   (mouse vs. dedo), no según el ancho de pantalla — así un celular en
+   horizontal (landscape) no "cruza" un breakpoint y termina mostrando
+   el HUD de teclado por error. */
+@media (hover: hover) and (pointer: fine) {
   .touch-controls {
     display: none;
   }
 }
 
 /* Room.css — mismo criterio para el HUD de texto */
-@media (max-width: 899px) {
+@media (hover: none), (pointer: coarse) {
   .hud-controls {
     display: none;
   }
