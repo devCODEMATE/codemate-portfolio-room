@@ -215,7 +215,7 @@
   border: 2px solid #ffd166;
   border-radius: 8px;
   padding: 8px 14px;
-  z-index: 5;
+  z-index: 15;
 }
 
 .key-group {
@@ -294,7 +294,7 @@ kbd {
   font-family: monospace;
   font-weight: bold;
   font-size: 0.85rem;
-  z-index: 5;
+  z-index: 15;
 }
 
 .interact-hint {
