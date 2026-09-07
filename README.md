@@ -29,8 +29,9 @@ Built to explore React + TypeScript from a vanilla-JS background, and to make a 
 - 🕹️ **WASD movement** with a hand-calibrated polygon/rectangle collision system (no tile grid — the room is a single background image)
 - 💬 **5 interactive stations**: About Me, Skills, Projects, Contact, and a decorative easter egg (Naga)
 - 🌐 **EN/ES language toggle**, switching all panel content live
-- 📱 **Mobile support** via on-screen touch controls that drive the same input system as the keyboard, with a responsive HUD that adapts down to small phone screens
+- 📱 **Mobile support** via on-screen touch controls that drive the same input system as the keyboard, with a responsive HUD that adapts down to small phone screens — device type is detected by input capability (`hover`/`pointer`), not screen width, so it holds up in landscape too
 - 🛠️ **Dev-only debug mode** (press `O` in `npm run dev`) that overlays every collision shape and station hitbox as SVG, plus a click-to-log tool for calibrating new coordinates
+- 🧪 **Tested across desktop, iOS, and Android** (Chrome, Safari, Brave)
 - 🚀 **Auto-deploy** to GitHub Pages via GitHub Actions on every push to `main`
 
 ### Tech stack
@@ -101,6 +102,8 @@ Runs `tsc -b` (type-check) followed by `vite build`. Every push to `main` trigge
 
 The room has no tile grid — it's a single hand-drawn background image. Walkable area, obstacles, and walls are defined as arrays of polygons and rectangles in `Room.tsx`, calibrated by eye using the debug mode: click on the room while `O` is active, and the exact pixel coordinates get logged to build each shape. Point-in-polygon checks use a standard ray-casting algorithm; obstacles and rects use simple bounding-box checks. Every frame, the next player position is checked against all of these before being applied — if it lands outside the walkable boundary or inside any obstacle, that axis of movement is rejected.
 
+The room's visual `clip-path` (which trims the background image down to the room's actual shape) is generated from the same `WALKABLE_BOUNDARY` array used for collisions, instead of being hand-written separately in CSS — keeping the visual edge and the collision edge mathematically impossible to desync.
+
 ### License
 
 Personal project — feel free to explore the code for learning purposes.
@@ -120,8 +123,9 @@ Lo construí para meterme en React + TypeScript viniendo de un background de JS 
 - 🕹️ **Movimiento con WASD**, con un sistema de colisiones de polígonos y rectángulos calibrado a mano (sin grilla de tiles — el cuarto es una sola imagen de fondo)
 - 💬 **5 estaciones interactivas**: Sobre mí, Skills, Proyectos, Contacto, y un easter egg decorativo (Naga)
 - 🌐 **Selector de idioma EN/ES**, que cambia todo el contenido de los paneles en vivo
-- 📱 **Soporte mobile** con controles táctiles en pantalla que alimentan el mismo sistema de input que el teclado, con un HUD responsive que se adapta hasta pantallas chicas de celular
+- 📱 **Soporte mobile** con controles táctiles en pantalla que alimentan el mismo sistema de input que el teclado, con un HUD responsive que se adapta hasta pantallas chicas de celular — el tipo de dispositivo se detecta por capacidad de input (`hover`/`pointer`), no por ancho de pantalla, así que se mantiene correcto también en horizontal
 - 🛠️ **Modo debug solo en desarrollo** (tecla `O` en `npm run dev`) que superpone cada forma de colisión y hitbox de estación como SVG, más una herramienta de click-para-loguear coordenadas al calibrar nuevas zonas
+- 🧪 **Probado en desktop, iOS y Android** (Chrome, Safari, Brave)
 - 🚀 **Deploy automático** a GitHub Pages vía GitHub Actions en cada push a `main`
 
 ### Stack técnico
@@ -191,6 +195,8 @@ Corre `tsc -b` (chequeo de tipos) y después `vite build`. Cada push a `main` di
 ### Notas sobre el sistema de colisiones
 
 El cuarto no tiene grilla de tiles — es una sola imagen de fondo dibujada a mano. El área caminable, los obstáculos y las paredes están definidos como arrays de polígonos y rectángulos en `Room.tsx`, calibrados a ojo usando el modo debug: hacés click en el cuarto con `O` activo, y las coordenadas exactas en píxeles quedan logueadas para armar cada forma. Los chequeos de punto-en-polígono usan el algoritmo estándar de ray casting; los obstáculos y rects usan chequeos simples de bounding-box. En cada frame, la próxima posición del jugador se valida contra todo esto antes de aplicarse — si cae afuera del límite caminable o dentro de algún obstáculo, ese eje de movimiento se rechaza.
+
+El `clip-path` visual del cuarto (que recorta la imagen de fondo a la forma real del cuarto) se genera desde el mismo array `WALKABLE_BOUNDARY` que se usa para las colisiones, en vez de escribirse por separado a mano en CSS — así el borde visual y el borde de colisión quedan matemáticamente imposibilitados de desincronizarse.
 
 ### Licencia
 
