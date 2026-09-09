@@ -34,7 +34,7 @@ const OBSTACLE_POLYGONS: Point[][] = [
 ];
 
 const OBSTACLE_RECTS = [
-  { xMin: 231, xMax: 863, yMin: 516, yMax: 755 },     // estante decorativo
+  { xMin: 58, xMax: 781, yMin: 578, yMax: 844 },      // estante decorativo (recalibrado v2)
   { xMin: 253, xMax: 570, yMin: 995, yMax: 1211 },    // mesa (about)
   { xMin: 2330, xMax: 2497, yMin: 1119, yMax: 1407 }, // lámpara + planta esquina
   { xMin: 1195, xMax: 1485, yMin: 110, yMax: 420 },   // biblioteca
@@ -395,8 +395,7 @@ function Room() {
           }}
         >
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setActiveStation(null)}>×</button>
-            <h2>{t.stations[activeStation.id]}</h2>
+<button className="modal-close" aria-label="Close" onClick={() => setActiveStation(null)}>×</button>            <h2>{t.stations[activeStation.id]}</h2>
             <StationPanel station={activeStation} language={language} />
           </div>
         </div>
