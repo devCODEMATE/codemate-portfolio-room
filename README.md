@@ -30,7 +30,8 @@ Built to explore React + TypeScript from a vanilla-JS background, and to make a 
 - 💬 **5 interactive stations**: About Me, Skills, Projects, Contact, and a decorative easter egg (Naga)
 - 🌐 **EN/ES language toggle**, switching all panel content live
 - 📱 **Mobile support** via on-screen touch controls that drive the same input system as the keyboard, with a responsive HUD that adapts down to small phone screens — device type is detected by input capability (`hover`/`pointer`), not screen width, so it holds up in landscape too
-- 🛠️ **Dev-only debug mode** (press `O` in `npm run dev`) that overlays every collision shape and station hitbox as SVG, plus a click-to-log tool for calibrating new coordinates
+- 🛠️ **Dev-only debug mode** (press `O` in `npm run dev`) that overlays every collision shape and station hitbox as SVG, with a live coordinate readout and a click-to-log tool for calibrating new positions
+- ♿ **Accessible touch controls**: every on-screen button has a proper `aria-label`, and the movement pad is grouped for screen readers
 - 🧪 **Tested across desktop, iOS, and Android** (Chrome, Safari, Brave)
 - 🚀 **Auto-deploy** to GitHub Pages via GitHub Actions on every push to `main`
 
@@ -124,7 +125,8 @@ Lo construí para meterme en React + TypeScript viniendo de un background de JS 
 - 💬 **5 estaciones interactivas**: Sobre mí, Skills, Proyectos, Contacto, y un easter egg decorativo (Naga)
 - 🌐 **Selector de idioma EN/ES**, que cambia todo el contenido de los paneles en vivo
 - 📱 **Soporte mobile** con controles táctiles en pantalla que alimentan el mismo sistema de input que el teclado, con un HUD responsive que se adapta hasta pantallas chicas de celular — el tipo de dispositivo se detecta por capacidad de input (`hover`/`pointer`), no por ancho de pantalla, así que se mantiene correcto también en horizontal
-- 🛠️ **Modo debug solo en desarrollo** (tecla `O` en `npm run dev`) que superpone cada forma de colisión y hitbox de estación como SVG, más una herramienta de click-para-loguear coordenadas al calibrar nuevas zonas
+- 🛠️ **Modo debug solo en desarrollo** (tecla `O` en `npm run dev`) que superpone cada forma de colisión y hitbox de estación como SVG, con lectura de coordenadas en vivo y una herramienta de click-para-loguear posiciones al calibrar nuevas zonas
+- ♿ **Controles táctiles accesibles**: cada botón en pantalla tiene su `aria-label` correspondiente, y el D-pad de movimiento está agrupado para lectores de pantalla
 - 🧪 **Probado en desktop, iOS y Android** (Chrome, Safari, Brave)
 - 🚀 **Deploy automático** a GitHub Pages vía GitHub Actions en cada push a `main`
 
