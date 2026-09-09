@@ -1,6 +1,6 @@
 // src/components/Room/Room.tsx
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { stations } from '../../data/stations';
 import type { Station } from '../../types/station';
 import { translations, type Language } from '../../data/translations';
@@ -22,7 +22,7 @@ const WALKABLE_BOUNDARY: Point[] = [
   { x: 1047, y: 1657 }, { x: 479, y: 1649 }, { x: 500, y: 1410 },
   { x: 54, y: 1396 }, { x: 78, y: 32 }, { x: 2489, y: 24 },
 ];
-
+const CLIP_PATH = `polygon(${WALKABLE_BOUNDARY.map((p) => `${p.x}px ${p.y}px`).join(', ')})`;
 const OBSTACLE_POLYGONS: Point[][] = [
   [
     { x: 2011, y: 140 }, { x: 2022, y: 430 }, { x: 2360, y: 449 }, { x: 2352, y: 167 },
@@ -103,6 +103,7 @@ function Room() {
   const [roomScale, setRoomScale] = useState(1);
 
   const keysPressed = useKeyboard();
+  const justOpenedRef = useRef(0);
   const t = translations[language];
 
   useEffect(() => {
@@ -170,6 +171,7 @@ function Room() {
     if (nearbyStation) {
       setActiveStation(nearbyStation);
       setCommits((c) => c + 1);
+      justOpenedRef.current = Date.now();
     }
   }
 
@@ -225,9 +227,14 @@ function Room() {
       >
         <div
           className="room"
-          style={{ backgroundImage: `url(${roomBg})`, transform: `scale(${roomScale})` }}
+          style={{ transform: `scale(${roomScale})` }}
           onClick={handleRoomClick}
         >
+          <div
+            className="room-background"
+            style={{ backgroundImage: `url(${roomBg})`, clipPath: CLIP_PATH }}
+          />
+
           <Player x={playerPos.x} y={playerPos.y} direction={direction} />
 
           <svg className="room-outline" viewBox={`0 0 ${ROOM_WIDTH} ${ROOM_HEIGHT}`}>
@@ -380,7 +387,13 @@ function Room() {
       </div>
 
       {activeStation?.kind === 'panel' && (
-        <div className="modal-overlay" onClick={() => setActiveStation(null)}>
+        <div
+          className="modal-overlay"
+          onClick={() => {
+            if (Date.now() - justOpenedRef.current < 300) return;
+            setActiveStation(null);
+          }}
+        >
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <button className="modal-close" onClick={() => setActiveStation(null)}>×</button>
             <h2>{t.stations[activeStation.id]}</h2>
