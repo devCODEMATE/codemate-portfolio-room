@@ -271,6 +271,26 @@ function Room() {
             </div>
           )}
 
+             {debugMode && (
+            <div
+              style={{
+                position: 'fixed',
+                top: 16,
+                left: 16,
+                background: 'rgba(0,0,0,0.85)',
+                color: '#0f0',
+                fontFamily: 'monospace',
+                fontSize: '14px',
+                padding: '8px 12px',
+                borderRadius: '6px',
+                zIndex: 999,
+                pointerEvents: 'none',
+              }}
+            >
+              x: {Math.round(playerPos.x)}, y: {Math.round(playerPos.y)}
+            </div>
+          )}
+
           {debugMode && debugLog.length > 0 && (
             <div
               className="debug-marker"
